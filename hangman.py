@@ -3,7 +3,6 @@ import requests
 data = requests.get(url="https://random-word-api.herokuapp.com/word").json()
 
 string = data[0]
-print(string)
 life = 6
 
 li = []
