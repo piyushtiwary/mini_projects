@@ -1,40 +1,43 @@
-import random
+import requests
 
-word_list = ["APPLE", "CAKE", "HANGMAN", "RIVER", "JAZZ", "UPPER", "LOWER", "MONSTER", "TRUCK"]
+data = requests.get(url="https://random-word-api.herokuapp.com/word").json()
 
-num = random.randint(1,9)
-string = word_list[num]
+string = data[0]
+print(string)
 life = 6
 
 li = []
 for i in range(len(string)):
-	li +="_"
+    li += "_"
+
 
 def displayField():
-	for i in range(len(string)):
-		print(li[i],end =" ")
+    for i in range(len(string)):
+        print(li[i], end=" ")
+
 
 displayField()
 gameOn = True
 
 
 def playGame():
-	global life
-	guess = input("Guess a Letter").upper()
-	count = 0
-	for ch in (string):
-		if ch==guess:
-			li[count]=guess
-			count +=1
-		else:
-			count +=1
-	displayField()
-	if guess not in string:
-		life -= 1
+    global life
+    guess = input("Guess a Letter").lower()
+    count = 0
+    for ch in string:
+        if ch == guess:
+            li[count] = guess
+
+        count += 1
+
+    displayField()
+    if guess not in string:
+        life -= 1
+
 
 while "_" in li:
-	playGame()
-	print("\n Lifes Left" ,life)
-	if life == 0:
-		print("You Lose")
-		break
+    playGame()
+    print("\n Life Left", life)
+    if life == 0:
+        print("You Lose")
+        break
